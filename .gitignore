@@ -1,0 +1,3 @@
+# keep the generated site, ignore local build noise
+.DS_Store
+__pycache__/

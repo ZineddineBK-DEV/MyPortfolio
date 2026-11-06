@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zineddine Boubaker — Full Stack Developer · Node.js, Angular &amp; IoT</title>
+<meta name="description" content="Full stack web developer in Hagen, Germany. Node.js, Angular, REST APIs, WebSockets and IoT systems built with MQTT, ESP32 and Raspberry Pi.">
+<meta property="og:title" content="Zineddine Boubaker — Full Stack Developer">
+<meta property="og:description" content="Business applications and IoT systems that hold up in production. Node.js · Angular · MQTT.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23194E60'/%3E%3Ctext x='32' y='43' font-family='Helvetica,Arial' font-size='30' font-weight='bold' fill='white' text-anchor='middle'%3EZB%3C/text%3E%3C/svg%3E">
+<style>
+@font-face{font-family:'Open Sans';font-style:normal;font-weight:400;font-display:swap;src:url(data:font/ttf;base64,{{FONT_REG}}) format('truetype')}
+@font-face{font-family:'Open Sans';font-style:normal;font-weight:600;font-display:swap;src:url(data:font/ttf;base64,{{FONT_SEMI}}) format('truetype')}
+@font-face{font-family:'Open Sans';font-style:normal;font-weight:700;font-display:swap;src:url(data:font/ttf;base64,{{FONT_BOLD}}) format('truetype')}
+
+:root{
+  --ink:#12333f;
+  --teal:#194e60;
+  --teal-2:#1f6479;
+  --body:#2f3437;
+  --muted:#6d757a;
+  --line:#e2e8ea;
+  --bg:#f7f9fa;
+  --card:#ffffff;
+  --soft:#eef4f5;
+  --radius:14px;
+  --shadow:0 1px 2px rgba(18,51,63,.05), 0 8px 28px -12px rgba(18,51,63,.18);
+  --max:1120px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{
+  margin:0;background:var(--bg);color:var(--body);
+  font-family:'Open Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+  font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{color:var(--ink);line-height:1.2;margin:0;letter-spacing:-.01em}
+a{color:var(--teal);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+.eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--teal-2);margin:0 0 10px}
+.lead{font-size:1.06rem;color:#485055}
+
+/* ---------- header ---------- */
+header{position:sticky;top:0;z-index:50;background:rgba(247,249,250,.86);backdrop-filter:blur(10px);border-bottom:1px solid transparent;transition:border-color .2s, box-shadow .2s}
+header.scrolled{border-bottom-color:var(--line);box-shadow:0 6px 20px -18px rgba(18,51,63,.5)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:66px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;color:var(--ink);font-size:.95rem;letter-spacing:.02em}
+.brand:hover{text-decoration:none}
+.brand .mark{width:30px;height:30px;border-radius:9px;background:var(--teal);color:#fff;display:grid;place-items:center;font-size:.78rem;letter-spacing:.03em}
+.navlinks{display:flex;align-items:center;gap:26px}
+.navlinks a{font-size:.86rem;color:#495156;font-weight:600}
+.navlinks a:hover,.navlinks a.active{color:var(--teal);text-decoration:none}
+.navlinks a.active{position:relative}
+.navlinks a.active::after{content:"";position:absolute;left:0;right:0;bottom:-22px;height:2px;background:var(--teal)}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 18px;border-radius:10px;font-weight:600;font-size:.88rem;border:1px solid transparent;transition:transform .15s, box-shadow .15s, background .15s;cursor:pointer}
+.btn:hover{text-decoration:none;transform:translateY(-1px)}
+.btn-primary{background:var(--teal);color:#fff;box-shadow:0 8px 20px -12px rgba(25,78,96,.9)}
+.btn-primary:hover{background:#134152;color:#fff}
+.btn-ghost{background:#fff;color:var(--ink);border-color:var(--line)}
+.btn-ghost:hover{border-color:#c8d4d8;color:var(--ink)}
+.burger{display:none;background:none;border:0;padding:8px;cursor:pointer}
+.burger span{display:block;width:22px;height:2px;background:var(--ink);margin:5px 0;border-radius:2px;transition:.2s}
+
+/* ---------- hero ---------- */
+.hero{position:relative;overflow:hidden;padding:70px 0 46px}
+.hero::before{
+  content:"";position:absolute;inset:-20% -10% auto -10%;height:620px;
+  background:
+    radial-gradient(520px 260px at 18% 12%, rgba(31,100,121,.10), transparent 70%),
+    radial-gradient(520px 300px at 82% 0%, rgba(25,78,96,.10), transparent 70%);
+  pointer-events:none;
+}
+.hero-grid{position:relative;display:grid;grid-template-columns:1.32fr .88fr;gap:52px;align-items:center}
+.avail{display:inline-flex;align-items:center;gap:9px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:7px 14px;font-size:.78rem;font-weight:600;color:#3d464a;box-shadow:0 1px 2px rgba(18,51,63,.04)}
+.dot{width:8px;height:8px;border-radius:50%;background:#2f9e6f;box-shadow:0 0 0 4px rgba(47,158,111,.16)}
+.hero h1{font-size:clamp(2.1rem,4.4vw,3.05rem);font-weight:700;margin:18px 0 14px;letter-spacing:-.025em}
+.hero h1 .thin{color:var(--teal-2)}
+.hero p.lead{max-width:34em}
+.cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+.meta{margin-top:26px;display:flex;gap:22px;flex-wrap:wrap;font-size:.82rem;color:var(--muted)}
+.meta span{display:flex;align-items:center;gap:7px}
+.meta svg{width:15px;height:15px;flex:none;stroke:var(--teal-2);fill:none;stroke-width:1.7}
+
+/* code card */
+.codecard{min-width:0;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+.codecard .bar{display:flex;align-items:center;gap:6px;padding:11px 14px;border-bottom:1px solid var(--line);background:#fbfcfc}
+.codecard .bar i{width:9px;height:9px;border-radius:50%;background:#e3e9eb;display:block}
+.codecard .bar b{margin-left:8px;font-size:.72rem;font-weight:600;color:#98a1a5;letter-spacing:.04em}
+.codecard pre{margin:0;padding:15px 16px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.705rem;line-height:1.8;color:#3a4750;overflow-x:auto;white-space:pre}
+.k{color:#1f6479;font-weight:600}
+.s{color:#8a6a3f}
+.c{color:#9aa4a8}
+
+/* ---------- stats ---------- */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:46px;position:relative}
+.stat{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+.stat b{display:block;font-size:1.36rem;color:var(--ink);line-height:1.15;letter-spacing:-.02em}
+.stat span{font-size:.775rem;color:var(--muted);display:block;margin-top:5px;line-height:1.4}
+
+/* ---------- sections ---------- */
+section{padding:60px 0}
+.sec-head{max-width:46em;margin-bottom:32px}
+.sec-head h2{font-size:clamp(1.5rem,2.6vw,1.95rem);font-weight:700}
+.sec-head p{margin:10px 0 0;color:#556065}
+.section-white{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+
+/* about */
+.about{display:grid;grid-template-columns:1fr .92fr;gap:44px;align-items:start}
+.about p{margin:0 0 16px}
+.about h2{font-size:clamp(1.5rem,2.6vw,1.95rem);margin-bottom:18px}
+.factlist{list-style:none;margin:0;padding:0}
+.factlist li{display:flex;gap:12px;padding:13px 0;border-bottom:1px solid var(--line);font-size:.9rem}
+.factlist li:first-child{padding-top:0}
+.factlist b{color:var(--ink);flex:none;width:104px;font-weight:600;font-size:.78rem;text-transform:uppercase;letter-spacing:.07em;padding-top:3px}
+.factlist span{color:#4d565a}
+
+/* skills */
+.skills{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.skillcard{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 20px;transition:box-shadow .2s, transform .2s}
+.skillcard:hover{box-shadow:var(--shadow);transform:translateY(-2px)}
+.skillcard h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.09em;color:var(--teal-2);margin-bottom:11px}
+.chips{display:flex;flex-wrap:wrap;gap:7px}
+.chip{font-size:.775rem;background:var(--soft);color:#3c4a50;border:1px solid #e0eaec;border-radius:7px;padding:4px 9px;font-weight:600}
+.chip.hot{background:#eaf2f4;border-color:#cfe1e6;color:var(--teal)}
+
+/* experience */
+.timeline{position:relative;padding-left:26px}
+.timeline::before{content:"";position:absolute;left:5px;top:8px;bottom:10px;width:2px;background:var(--line)}
+.job{position:relative;padding-bottom:30px}
+.job:last-child{padding-bottom:0}
+.job::before{content:"";position:absolute;left:-26px;top:7px;width:12px;height:12px;border-radius:50%;background:#fff;border:2.5px solid var(--teal)}
+.job-top{display:flex;justify-content:space-between;gap:16px;align-items:baseline;flex-wrap:wrap}
+.job h3{font-size:1.06rem}
+.job .org{color:var(--teal-2);font-weight:600;font-size:.92rem;margin-top:2px}
+.job .when{font-size:.79rem;color:var(--muted);white-space:nowrap;background:#fff;border:1px solid var(--line);border-radius:999px;padding:3px 11px;font-weight:600}
+.job ul{margin:14px 0 0;padding:0;list-style:none}
+.job li{position:relative;padding-left:18px;margin-bottom:9px;font-size:.925rem;color:#414a4f}
+.job li::before{content:"";position:absolute;left:0;top:.62em;width:5px;height:5px;border-radius:50%;background:var(--teal-2);opacity:.55}
+
+/* education strip */
+.edu{display:grid;grid-template-columns:1.35fr 1fr;gap:44px;margin-top:44px;padding-top:32px;border-top:1px solid var(--line)}
+.edulist{list-style:none;margin:0;padding:0}
+.edulist li{display:flex;justify-content:space-between;gap:14px;align-items:baseline;padding:9px 0;border-bottom:1px solid #eef2f3;font-size:.9rem;flex-wrap:wrap}
+.edulist li:last-child{border-bottom:0}
+.edulist b{color:var(--ink);font-weight:600}
+.edulist span{color:var(--muted);font-size:.83rem}
+
+/* projects */
+.projects{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:24px;box-shadow:0 1px 2px rgba(18,51,63,.04);transition:box-shadow .22s, transform .22s, border-color .22s;display:flex;flex-direction:column}
+.card:hover{box-shadow:var(--shadow);transform:translateY(-3px);border-color:#d3dee1}
+.card .top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.card h3{font-size:1.04rem}
+.tag{font-size:.67rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--teal);background:#eaf2f4;border-radius:6px;padding:4px 8px;white-space:nowrap;flex:none}
+.card .stack{display:flex;flex-wrap:wrap;gap:6px;margin:13px 0 14px}
+.card .stack span{font-size:.72rem;color:#5a6569;background:#f3f6f7;border-radius:5px;padding:3px 7px;font-weight:600}
+.card > p{margin:0 0 14px;font-size:.915rem;color:#454e53}
+.card .roles{border-top:1px solid var(--line);padding-top:13px;margin-top:auto;font-size:.83rem;color:var(--muted)}
+.card .roles b{color:var(--teal-2);font-weight:600}
+.more{background:none;border:0;padding:0;font:inherit;font-size:.83rem;font-weight:600;color:var(--teal);cursor:pointer;margin-top:12px;text-align:left}
+.more:hover{text-decoration:underline}
+.detail{display:none;margin-top:12px;font-size:.87rem;color:#4a5357;border-left:2px solid #d7e3e6;padding-left:12px}
+.detail.open{display:block}
+
+/* automation feature block */
+.iot,.auto{background:linear-gradient(180deg,#0f3a49,#123340);color:#dfe9ec;border-radius:18px;padding:38px;position:relative;overflow:hidden}
+.iot::after,.auto::after{content:"";position:absolute;right:-90px;top:-90px;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(66,160,180,.26),transparent 65%);pointer-events:none}
+.iot h2,.auto h2{color:#fff;font-size:1.55rem;margin-bottom:12px}
+.iot .eyebrow,.auto .eyebrow{color:#7fc3d1}
+.iot p,.auto p{color:#c3d4d9;max-width:52em}
+.iot-grid{display:grid;grid-template-columns:1fr 1fr;gap:34px;align-items:center;margin-top:24px;position:relative}
+.iot ul,.auto ul{list-style:none;margin:0;padding:0}
+.iot li,.auto li{position:relative;padding-left:20px;margin-bottom:10px;font-size:.9rem;color:#cfdde1}
+.iot li b,.auto li b{color:#fff}
+.iot li::before,.auto li::before{content:"";position:absolute;left:0;top:.6em;width:6px;height:6px;border-radius:50%;background:#4fb0c4}
+.flow{width:100%;height:auto;max-width:100%}
+.flow text{font-family:'Open Sans',sans-serif}
+.flowcap{font-size:.78rem !important;color:#8fb2bb !important;margin:12px 0 0 !important;line-height:1.5}
+.auto-note{margin-top:22px !important;padding-top:18px;border-top:1px solid rgba(255,255,255,.12);font-size:.86rem !important;color:#a9c4cb !important;max-width:60em}
+
+/* testimonial */
+.quote{background:#fff;border:1px solid var(--line);border-left:4px solid var(--teal);border-radius:12px;padding:26px 28px;box-shadow:0 1px 2px rgba(18,51,63,.04)}
+.quote p{font-size:1rem;color:#3c4549;margin:0 0 18px}
+.quote footer{font-size:.86rem;color:var(--muted)}
+.quote footer b{color:var(--ink);font-weight:700}
+.quote footer a{font-weight:600}
+
+/* contact */
+.contact{background:var(--ink);color:#dfe9ec;padding:60px 0 36px}
+.contact h2{color:#fff}
+.contact .eyebrow{color:#7fc3d1}
+.contact .sec-head p{color:#b9cbd1}
+.cgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:6px}
+.citem{display:flex;align-items:center;gap:13px;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.09);border-radius:11px;padding:15px 17px;color:#eaf2f4;transition:background .18s,border-color .18s}
+.citem:hover{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.18);text-decoration:none;color:#fff}
+.citem svg{width:18px;height:18px;flex:none;stroke:#7fc3d1;fill:none;stroke-width:1.7}
+.citem div{min-width:0}
+.citem small{display:block;font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:#8fa9b1;margin-bottom:1px}
+.citem span{font-size:.9rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:block}
+.copy{background:none;border:0;color:#7fc3d1;font:inherit;font-size:.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;padding:4px 0;margin-left:auto;flex:none}
+.cfoot{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center;margin-top:34px;padding-top:20px;border-top:1px solid rgba(255,255,255,.1);font-size:.78rem;color:#93aab2}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(14px);transition:opacity .55s ease, transform .55s ease}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
+
+/* responsive */
+@media (max-width:900px){
+  .hero-grid{grid-template-columns:1fr;gap:34px}
+  .about,.iot-grid,.edu{grid-template-columns:1fr;gap:26px}
+  .skills{grid-template-columns:1fr 1fr}
+  .projects{grid-template-columns:1fr}
+  .stats{grid-template-columns:1fr 1fr}
+  .navlinks{position:fixed;inset:66px 0 auto 0;background:#fff;flex-direction:column;align-items:stretch;gap:0;padding:8px 24px 20px;border-bottom:1px solid var(--line);box-shadow:0 20px 30px -24px rgba(18,51,63,.6);display:none}
+  .navlinks.open{display:flex}
+  .navlinks a{padding:12px 0;border-bottom:1px solid #f0f4f5}
+  .navlinks a.active::after{display:none}
+  .nav .btn{display:none}
+  .burger{display:block}
+  .iot,.auto{padding:26px}
+}
+@media (max-width:600px){
+  .skills,.cgrid{grid-template-columns:1fr}
+  section{padding:48px 0}
+  .hero{padding:44px 0 38px}
+  .codecard pre{font-size:.66rem}
+}
+@media print{
+  header,.cta,.nav,.copy,.more,.burger{display:none!important}
+  body{background:#fff}
+  .iot{background:#fff;color:#12333f;border:1px solid #ddd}
+  .iot h2,.iot li,.iot p,.iot li b,.auto h2,.auto li,.auto p,.auto li b{color:#12333f}
+  .contact{background:#fff;color:#12333f}
+  .citem{border-color:#ddd;color:#12333f}
+  .rv{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<header id="site-header">
+  <div class="wrap nav">
+    <a class="brand" href="#home"><span class="mark">ZB</span> Zineddine Boubaker</a>
+    <nav class="navlinks" id="navlinks">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#experience">Experience</a>
+      <a href="#work">Work</a>
+      <a href="#automation">Automation</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="btn btn-primary" href="CV_Zineddine_Boubaker.pdf" download="CV_Zineddine_Boubaker.pdf">Download CV</a>
+    <button class="burger" id="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main id="home">
+  <!-- ============ HERO ============ -->
+  <div class="hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <span class="avail"><span class="dot"></span> Open to full stack roles · available immediately</span>
+          <h1>Zineddine Boubaker<br><span class="thin">Full Stack Developer</span></h1>
+          <p class="lead">I build web applications and the APIs behind them — Node.js, Angular, MongoDB, Docker. Three years of taking requirements apart, designing the interfaces, and shipping software that a team uses every day. Automation of infrastructure is the part I enjoy most.</p>
+          <div class="cta">
+            <a class="btn btn-primary" href="#work">See the work</a>
+            <a class="btn btn-ghost" href="CV_Zineddine_Boubaker.pdf" download="CV_Zineddine_Boubaker.pdf">
+              Download CV
+              <svg viewBox="0 0 24 24" aria-hidden="true" style="width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2"><path d="M12 4v11m0 0 4-4m-4 4-4-4M5 20h14"/></svg>
+            </a>
+            <a class="btn btn-ghost" href="#contact">Get in touch</a>
+          </div>
+          <div class="meta">
+            <span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-5.4 7-11a7 7 0 1 0-14 0c0 5.6 7 11 7 11Z"/><circle cx="12" cy="10" r="2.6"/></svg>
+              Hagen, Germany — Dortmund in ~40 min
+            </span>
+            <span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 3 2.6 15 0 18M12 3c-2.6 3-2.6 15 0 18"/></svg>
+              Arabic (native) · English (B2) · French
+            </span>
+          </div>
+        </div>
+
+        <div class="codecard rv">
+          <div class="bar"><i></i><i></i><i></i><b>routes/resources.js</b></div>
+<pre><span class="c">// routes/resources.js — role-guarded</span>
+router.<span class="k">get</span>(<span class="s">'/resources'</span>, auth, <span class="k">allow</span>(<span class="s">'admin'</span>),
+  <span class="k">async</span> (req, res) =&gt; {
+    <span class="k">const</span> list = <span class="k">await</span> Resource
+      .<span class="k">find</span>({ org: req.user.org })
+      .<span class="k">sort</span>({ name: <span class="n">1</span> })
+      .<span class="k">lean</span>();
+
+    res.<span class="k">json</span>({ count: list.length, list });
+});
+
+<span class="c">// POST /resources/:id/assign → approval flow</span>
+<span class="c">// socket.io emits 'resource:updated' to the team</span></pre>
+        </div>
+      </div>
+
+      <div class="stats">
+        <div class="stat"><b>3+ years</b><span>Building web apps and REST APIs</span></div>
+        <div class="stat"><b>5 systems</b><span>Web platforms delivered as technical lead</span></div>
+        <div class="stat"><b>REST APIs</b><span>Designed, documented and secured</span></div>
+        <div class="stat"><b>CI/CD</b><span>Docker · Jenkins · automated tests</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ ABOUT ============ -->
+  <section id="about">
+    <div class="wrap">
+      <div class="about">
+        <div class="rv">
+          <p class="eyebrow">About</p>
+          <h2>Requirements in, working software out.</h2>
+          <p>Most of my work is internal business software: resource management, project management, ticketing. Systems a team uses every day, where a slow query or an unclear permission model is felt immediately. I design the back end and the API contracts, and I document them well enough that the front end can be built in parallel instead of waiting.</p>
+          <p>Alongside that I build IoT solutions — ESP32 and Raspberry Pi sensors publishing over MQTT into a Node.js back end, with a live dashboard, threshold alerting and history for analysis. It's the corner of development I enjoy most: real hardware, real data, no room for hand-waving.</p>
+          <p>I work directly with clients and stakeholders, and I'd rather tell someone a deadline is unrealistic than deliver something that has to be rebuilt.</p>
+        </div>
+        <div class="rv">
+          <ul class="factlist">
+            <li><b>Based</b><span>Hagen, North Rhine-Westphalia · remote-friendly, on site in NRW</span></li>
+            <li><b>Available</b><span>Full time, immediately — open to permanent roles</span></li>
+            <li><b>Focus</b><span>Full stack web development, industrial and IoT applications</span></li>
+            <li><b>Learning</b><span>Going deeper on .NET and Azure alongside Node.js</span></li>
+            <li><b>Contact</b><span>+49 178 4084318 · zineddineboubaker@outlook.com</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SKILLS ============ -->
+  <section id="skills" class="section-white">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <p class="eyebrow">Technical skills</p>
+        <h2>The stack I work in daily</h2>
+        <p>Grouped by where it sits in an application, because that is how projects are actually split up.</p>
+      </div>
+      <div class="skills">
+        <div class="skillcard rv"><h3>Front end</h3><div class="chips">
+          <span class="chip hot">Angular</span><span class="chip hot">TypeScript</span><span class="chip">JavaScript</span>
+          <span class="chip">HTML5</span><span class="chip">CSS3</span><span class="chip">Bootstrap</span><span class="chip">Leaflet</span>
+        </div></div>
+        <div class="skillcard rv"><h3>Back end &amp; APIs</h3><div class="chips">
+          <span class="chip hot">Node.js</span><span class="chip hot">Express.js</span><span class="chip hot">REST</span>
+          <span class="chip">WebSockets / Socket.io</span><span class="chip">JWT</span><span class="chip">Role-based access control</span>
+        </div></div>
+        <div class="skillcard rv"><h3>Databases</h3><div class="chips">
+          <span class="chip hot">MongoDB</span><span class="chip hot">MySQL</span><span class="chip">Schema design</span>
+          <span class="chip">Query optimisation</span><span class="chip">Indexing</span>
+        </div></div>
+        <div class="skillcard rv"><h3>Automation &amp; virtualisation</h3><div class="chips">
+          <span class="chip hot">VMware vSphere API</span><span class="chip hot">VM provisioning</span>
+          <span class="chip">Snapshots &amp; clones</span><span class="chip">Datastore &amp; host monitoring</span>
+          <span class="chip">Lab environment automation</span>
+        </div></div>
+        <div class="skillcard rv"><h3>DevOps &amp; cloud</h3><div class="chips">
+          <span class="chip hot">Docker</span><span class="chip hot">Jenkins CI/CD</span><span class="chip">GitHub Actions</span>
+          <span class="chip">AWS</span><span class="chip">Linux</span><span class="chip">Automated testing</span>
+        </div></div>
+        <div class="skillcard rv"><h3>Mobile &amp; tooling</h3><div class="chips">
+          <span class="chip">Flutter (offline sync)</span><span class="chip">Dart</span><span class="chip">Git</span>
+          <span class="chip">Postman</span><span class="chip">Agile / Scrum</span><span class="chip">ClickUp</span>
+        </div></div>
+        <div class="skillcard rv"><h3>IoT &amp; real time</h3><div class="chips">
+          <span class="chip">MQTT</span><span class="chip">ESP32</span><span class="chip">Raspberry Pi</span>
+          <span class="chip">WebSockets</span><span class="chip">Python</span>
+        </div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ EXPERIENCE ============ -->
+  <section id="experience">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <p class="eyebrow">Experience</p>
+        <h2>Where I've done it</h2>
+      </div>
+      <div class="timeline">
+        <div class="job rv">
+          <div class="job-top">
+            <div>
+              <h3>Full Stack Developer (MEAN) · Technical Lead</h3>
+              <div class="org">Prologic Tunisie</div>
+            </div>
+            <span class="when">Jan 2023 — Present</span>
+          </div>
+          <ul>
+            <li>Designed and built the back end of three internal business applications — resource management, project management and ticketing — with Node.js, Express.js and MongoDB, each with an Angular front end used daily by operations, project and support teams.</li>
+            <li>Defined and documented the REST API contracts between front end and back end, so web and Flutter clients could be built in parallel with the back-end work.</li>
+            <li>Implemented JWT authentication and role-based access control (Admin, Manager, User) across all applications, including approval workflows and per-role data visibility.</li>
+            <li>Added real-time behaviour with Socket.io — live resource availability, in-app notifications and ticket updates — replacing manual refreshes and internal e-mail round trips.</li>
+            <li>Set up Dockerised environments and Jenkins CI/CD pipelines with automated tests, so every build and deployment ran the same way.</li>
+            <li>Optimised database queries and application performance, keeping dashboards responsive as data volumes grew.</li>
+            <li>Built web tools that talk to VMware vSphere through its REST API: creating and cloning virtual machines from templates, managing snapshots and power state, and reading host, cluster and datastore metrics — so routine infrastructure work became a form instead of a ticket.</li>
+            <li>Worked daily with front-end developers, QA and business stakeholders in an agile team: clarified requirements, kept scope realistic, documented decisions in a central knowledge base.</li>
+          </ul>
+        </div>
+        <div class="job rv">
+          <div class="job-top">
+            <div>
+              <h3>Freelance Full Stack Developer</h3>
+              <div class="org">Self-employed</div>
+            </div>
+            <span class="when">Mar 2021 — Present</span>
+          </div>
+          <ul>
+            <li>Built custom web applications end to end for small businesses — admin dashboards, booking systems, task managers, expense trackers — with Node.js, Express.js, MongoDB and Angular.</li>
+            <li>Gathered requirements directly with clients, turned them into data models and REST APIs, and deployed the finished application to production.</li>
+            <li>Provided ongoing maintenance and support after go-live, including the changes clients needed as their processes evolved.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="edu rv">
+        <div>
+          <p class="eyebrow">Education</p>
+          <ul class="edulist">
+            <li><b>Web &amp; Mobile Engineering</b><span>Tek-Up University · 2020 – 2023</span></li>
+            <li><b>Information Systems Development</b><span>ISET Sfax · 2016 – 2019</span></li>
+            <li><b>Computer Science Baccalaureate</b><span>Bardo High School · 2015 – 2016</span></li>
+          </ul>
+        </div>
+        <div>
+          <p class="eyebrow">Languages</p>
+          <ul class="edulist">
+            <li><b>Arabic</b><span>Native</span></li>
+            <li><b>English</b><span>Intermediate — B2</span></li>
+            <li><b>French</b><span>Intermediate</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WORK ============ -->
+  <section id="work" class="section-white">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <p class="eyebrow">Selected work</p>
+        <h2>Eight systems, built end to end</h2>
+        <p>A mix of application development and infrastructure automation, all of it running in production. The code isn't public, but I'm happy to walk through the architecture and the decisions behind it in a conversation.</p>
+      </div>
+
+      <div class="projects">
+        <article class="card rv">
+          <div class="top"><h3>Resource Management Dashboard</h3><span class="tag">Internal</span></div>
+          <div class="stack"><span>Node.js</span><span>Express</span><span>MongoDB</span><span>Angular</span><span>Socket.io</span><span>JWT</span><span>Docker</span></div>
+          <p>Centralised system for company resources — vehicles, rooms and employees — with real-time availability tracking, booking and approval workflows behind secure, role-based APIs.</p>
+          <div class="roles"><b>Role:</b> back-end design, API contracts, Angular integration, deployment.</div>
+          <button class="more" data-toggle type="button">What it replaced →</button>
+          <div class="detail">Scattered spreadsheets and manual requests became one live view of who has what. Double bookings surfaced before they happened instead of afterwards, and approvals left e-mail and became part of the workflow.</div>
+        </article>
+
+        <article class="card rv">
+          <div class="top"><h3>Ticketing &amp; Resource Management System</h3><span class="tag">Technical lead</span></div>
+          <div class="stack"><span>Node.js</span><span>Express</span><span>MongoDB</span><span>Angular</span><span>Socket.io</span><span>Jenkins</span></div>
+          <p>Internal ticketing for support and operations: priorities and status flow, workload management across teams, reporting, real-time updates and automated e-mail notifications.</p>
+          <div class="roles"><b>Role:</b> data model, REST API, real-time layer, CI/CD, documentation.</div>
+          <button class="more" data-toggle type="button">Why it mattered →</button>
+          <div class="detail">A centralised knowledge base for recurring issues cut handling time and stopped the same problem being solved twice by different people. New colleagues still use it as the starting point.</div>
+        </article>
+
+        <article class="card rv">
+          <div class="top"><h3>Data Center Automation Portal</h3><span class="tag">Automation</span></div>
+          <div class="stack"><span>Node.js</span><span>VMware vSphere API</span><span>Angular</span><span>MongoDB</span><span>Docker</span></div>
+          <p>Web application that automates the routine work of running a data center: provisioning virtual machines from templates, cloning and snapshotting, changing power state, and reading what vSphere exposes about hosts, clusters and datastores.</p>
+          <div class="roles"><b>Role:</b> vSphere API integration, job queue, permission model, Angular UI.</div>
+          <button class="more" data-toggle type="button">The hard part →</button>
+          <div class="detail">Long-running operations. A clone is not an API call that returns in 200 ms, so every action became a tracked job with its own state and a live progress feed, instead of a browser hanging on a request that times out.</div>
+        </article>
+
+        <article class="card rv">
+          <div class="top"><h3>Lab Environment Manager</h3><span class="tag">Automation</span></div>
+          <div class="stack"><span>Node.js</span><span>Express</span><span>vSphere API</span><span>MongoDB</span><span>Angular</span><span>Jenkins</span></div>
+          <p>Self-service portal for training and test labs: a colleague picks an environment, the application builds the VM set from templates, hands over the addresses and credentials, and tears it all down again on a schedule.</p>
+          <div class="roles"><b>Role:</b> environment templates, provisioning workflow, quota and expiry rules.</div>
+          <button class="more" data-toggle type="button">Why it was worth building →</button>
+          <div class="detail">Lab setups were previously an e-mail to whoever had vCenter access, and forgotten machines quietly consumed capacity for months. Expiry rules and quotas turned capacity into something visible and finite.</div>
+        </article>
+
+        <article class="card rv">
+          <div class="top"><h3>Server &amp; Storage Monitoring</h3><span class="tag">Monitoring</span></div>
+          <div class="stack"><span>Node.js</span><span>vSphere API</span><span>MySQL</span><span>Socket.io</span><span>Angular</span></div>
+          <p>Dashboard over host, cluster and datastore metrics — CPU and memory pressure, free space, snapshot sprawl, machines that are powered on but idle — with history so capacity questions are answered from data instead of guesses.</p>
+          <div class="roles"><b>Role:</b> metric collection, retention strategy, threshold rules, dashboard design.</div>
+          <button class="more" data-toggle type="button">What it caught →</button>
+          <div class="detail">Datastores filling up and forgotten snapshots growing for weeks. Both are invisible until something breaks; on a chart with a threshold they are obvious in advance.</div>
+        </article>
+
+        <article class="card rv">
+          <div class="top"><h3>Project Management Dashboard</h3><span class="tag">Internal + mobile</span></div>
+          <div class="stack"><span>Node.js</span><span>Angular</span><span>Socket.io</span><span>Flutter</span><span>Docker</span><span>Jenkins</span></div>
+          <p>Task boards, user roles and project analytics for internal project teams, with a companion Flutter app that keeps working when the connection drops and synchronises when it returns.</p>
+          <div class="roles"><b>Role:</b> API design, analytics endpoints, Flutter offline synchronisation, build and deployment.</div>
+          <button class="more" data-toggle type="button">Hardest part →</button>
+          <div class="detail">Offline synchronisation. Two devices editing the same task without a connection is a conflict problem, not a caching problem — it needed a queue, timestamps and a merge rule that never silently loses an edit.</div>
+        </article>
+
+        <article class="card rv">
+          <div class="top"><h3>Internal Reporting &amp; KPI Service</h3><span class="tag">Back end</span></div>
+          <div class="stack"><span>Node.js</span><span>Express</span><span>MongoDB</span><span>Aggregation</span><span>JWT</span></div>
+          <p>Reporting back end that turns operational data from the other internal tools into scheduled summaries: workload per team, resource utilisation, ticket throughput — delivered as a weekly digest instead of being assembled by hand.</p>
+          <div class="roles"><b>Role:</b> aggregation pipelines, scheduling, report templates, permissions.</div>
+          <button class="more" data-toggle type="button">Design note →</button>
+          <div class="detail">Reports run against a separate read path with pre-aggregated collections, so a month-end report does not slow down the dashboards people are working in.</div>
+        </article>
+
+        <article class="card rv">
+          <div class="top"><h3>Data Center Monitoring Dashboard</h3><span class="tag">IoT</span></div>
+          <div class="stack"><span>MQTT</span><span>ESP32</span><span>Raspberry Pi</span><span>Node.js</span><span>MongoDB</span><span>Python</span></div>
+          <p>Real-time monitoring of temperature, humidity and power metrics. Sensors publish over MQTT to a Node.js back end; a live dashboard shows current values, threshold breaches raise alerts, and history is stored for analysis.</p>
+          <div class="roles"><b>Role:</b> sensor to dashboard — MQTT topics, ingestion, alerting rules, retention, web front end.</div>
+          <button class="more" data-toggle type="button">What changed →</button>
+          <div class="detail">Problems are caught from the trend instead of after the fact, and nobody walks the room with a clipboard any more.</div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ AUTOMATION ============ -->
+  <section id="automation">
+    <div class="wrap">
+      <div class="auto rv">
+        <p class="eyebrow">Automation</p>
+        <h2>Turning infrastructure work into a web form</h2>
+        <p>The data center and lab projects all have the same shape: something that used to be a ticket and a person with vCenter access becomes a request in a web application, handled by an API, reported back in real time. It is ordinary web development — with a very unforgiving backend.</p>
+        <div class="iot-grid">
+          <div>
+            <ul>
+              <li><b>Authenticate</b> — the application signs into vSphere with its own service account, and every user action is checked against their role before anything is provisioned.</li>
+              <li><b>Request</b> — creating a VM, cloning a template, taking a snapshot, powering a machine off: each becomes a validated API call with a defined input, not a free-text instruction.</li>
+              <li><b>Queue</b> — provisioning is slow, so actions run as tracked jobs with a state machine instead of one HTTP request that might time out.</li>
+              <li><b>Act</b> — the Node.js service calls the vSphere REST API, waits on the task, and records what happened and who asked for it.</li>
+              <li><b>Report</b> — Socket.io pushes job progress and live metrics into the dashboard; MongoDB keeps the history that capacity questions get answered from.</li>
+            </ul>
+          </div>
+          <div>
+            <svg class="flow" viewBox="0 0 460 208" role="img" aria-label="Diagram: an Angular portal sends a request to a Node.js API with a job queue, which calls the VMware vSphere REST API and records jobs and metrics in MongoDB, while Socket.io pushes live progress to the dashboard">
+              <defs>
+                <marker id="arr2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                  <path d="M0 1 L8 5 L0 9 z" fill="#4fb0c4"/>
+                </marker>
+              </defs>
+              <g fill="none" stroke="#4fb0c4" stroke-width="1.6" stroke-opacity=".75" marker-end="url(#arr2)">
+                <path d="M128 43 H158"/>
+                <path d="M300 43 H328"/>
+                <path d="M196 68 V130"/>
+                <path d="M262 68 V130"/>
+                <path d="M232 130 V68" stroke-dasharray="5 4"/>
+              </g>
+              <g fill="#174553" stroke="#4fb0c4" stroke-width="1.3" stroke-opacity=".85">
+                <rect x="8" y="20" width="120" height="46" rx="8"/>
+                <rect x="158" y="20" width="142" height="46" rx="8"/>
+                <rect x="328" y="20" width="124" height="46" rx="8"/>
+                <rect x="164" y="130" width="134" height="48" rx="8"/>
+                <rect x="328" y="130" width="124" height="48" rx="8"/>
+              </g>
+              <g fill="#eaf4f6" font-size="10.5" font-weight="600" text-anchor="middle">
+                <text x="68" y="40">Web portal</text>
+                <text x="68" y="54" font-size="8.5" font-weight="400" opacity=".75">Angular · role-guarded</text>
+                <text x="229" y="40">Node.js API</text>
+                <text x="229" y="54" font-size="8.5" font-weight="400" opacity=".75">validation · job queue</text>
+                <text x="390" y="40">vSphere REST API</text>
+                <text x="390" y="54" font-size="8.5" font-weight="400" opacity=".75">VMs · hosts · datastores</text>
+                <text x="231" y="150">MongoDB</text>
+                <text x="231" y="164" font-size="8.5" font-weight="400" opacity=".75">jobs · metrics · history</text>
+                <text x="390" y="150">Socket.io</text>
+                <text x="390" y="164" font-size="8.5" font-weight="400" opacity=".75">live job progress</text>
+              </g>
+              <g font-size="7.5" font-weight="700" fill="#7fc3d1" letter-spacing=".09em" text-anchor="middle">
+                <text x="143" y="12">REQUEST</text>
+                <text x="314" y="12">CALL</text>
+                <text x="290" y="100">LOG</text>
+                <text x="176" y="100">STATUS</text>
+              </g>
+            </svg>
+            <p class="flowcap">Portal → API with job queue → vSphere REST API, with every action logged and pushed live to the dashboard.</p>
+          </div>
+        </div>
+        <p class="auto-note">The same pattern carries the IoT work: sensors publishing over MQTT into a Node.js service that stores history and pushes live readings to a dashboard. Different protocol, same architecture.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TESTIMONIAL ============ -->
+  <section id="reference">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <p class="eyebrow">Reference</p>
+        <h2>What a colleague says</h2>
+      </div>
+      <div class="quote rv">
+        <p>“I worked with Zineddine on our ticketing and resource management system, where he was the technical lead and I worked on the front end alongside him. He owned the backend completely, the ticket and workload logic, the role-based permissions, the real-time updates over Socket.io and the automated e-mail notifications, and the API contracts were documented clearly enough that I never had to guess what the frontend was going to receive.<br><br>When the requirements were still moving, he was the one who kept the scope honest and told stakeholders what was realistic, which saved us from building the same feature twice. The knowledge base he set up in that system is still what we point new colleagues to, and it noticeably cut down the time we needed to close recurring issues.”</p>
+        <footer>
+          <b>Amir Horchani</b> — Full Stack Developer, Prologic Tunisie · <a href="mailto:amir.horchani@prologic.com.tn">amir.horchani@prologic.com.tn</a><br>
+          <span style="font-size:.8rem">Reproduced with the author's permission.</span>
+        </footer>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section class="contact" id="contact">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <p class="eyebrow">Contact</p>
+        <h2>Let's talk about the role</h2>
+        <p>Fastest way to reach me is e-mail or phone. I answer the same day, and I'm happy to do a short technical call before any formal process.</p>
+      </div>
+      <div class="cgrid">
+        <a class="citem" href="mailto:zineddineboubaker@outlook.com">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 6 8.5-6"/></svg>
+          <div><small>E-mail</small><span>zineddineboubaker@outlook.com</span></div>
+          <button class="copy" data-copy="zineddineboubaker@outlook.com" type="button">Copy</button>
+        </a>
+        <a class="citem" href="tel:+491784084318">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 3.5h3l1.5 4-2 1.5a12 12 0 0 0 6 6l1.5-2 4 1.5v3a2 2 0 0 1-2.2 2A17 17 0 0 1 4.5 5.7 2 2 0 0 1 6.5 3.5Z"/></svg>
+          <div><small>Phone</small><span>+49 178 4084318</span></div>
+          <button class="copy" data-copy="+491784084318" type="button">Copy</button>
+        </a>
+        <a class="citem" href="https://www.linkedin.com/in/zineddine-boubaker/" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 10.5v6M8 7.6v.1M12 16.5v-6M12 13c0-1.4 1-2.5 2.4-2.5S17 11.6 17 13v3.5"/></svg>
+          <div><small>LinkedIn</small><span>in/zineddine-boubaker</span></div>
+        </a>
+        <a class="citem" href="https://github.com/ZineddineBK-DEV" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 19c-4 1.5-4-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 4.5-1.4 4.5-4.8 0-1-.3-1.9-1-2.6.3-1 .3-2-.1-2.8 0 0-1-.3-3.2 1.1a11 11 0 0 0-5.4 0C7.1 3.9 6.1 4.2 6.1 4.2c-.4.8-.4 1.8-.1 2.8-.7.7-1 1.6-1 2.6 0 3.4 1.7 4.5 4.5 4.8-.5.5-.5 1-.5 2V21"/></svg>
+          <div><small>GitHub</small><span>ZineddineBK-DEV</span></div>
+        </a>
+      </div>
+      <div class="cfoot">
+        <span>© <span id="year">2026</span> Zineddine Boubaker · Hagen, Germany</span>
+        <a class="btn btn-primary" href="CV_Zineddine_Boubaker.pdf" download="CV_Zineddine_Boubaker.pdf">Download CV (PDF)</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+(function(){
+  "use strict";
+  var header = document.getElementById('site-header');
+  var onScroll = function(){
+    if (window.scrollY > 8) { header.classList.add('scrolled'); } else { header.classList.remove('scrolled'); }
+  };
+  onScroll(); window.addEventListener('scroll', onScroll, {passive:true});
+
+  var burger = document.getElementById('burger');
+  var links = document.getElementById('navlinks');
+  burger.addEventListener('click', function(){
+    var open = links.classList.toggle('open');
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  links.addEventListener('click', function(e){
+    if (e.target.tagName === 'A') { links.classList.remove('open'); burger.setAttribute('aria-expanded','false'); }
+  });
+
+  // ---- scroll spy -------------------------------------------------------
+  // Pick the section whose top is closest to (but above) the reading line,
+  // instead of trusting IntersectionObserver ordering, which latched onto
+  // whichever section happened to cross the rootMargin last.
+  var sections = Array.prototype.slice.call(document.querySelectorAll('main section[id]'));
+  var navAnchors = Array.prototype.slice.call(document.querySelectorAll('.navlinks a'));
+  var HEADER = 84;
+
+  function setActive(id) {
+    navAnchors.forEach(function(a){
+      a.classList.toggle('active', id !== null && a.getAttribute('href') === '#' + id);
+    });
+  }
+
+  function spy() {
+    var line = window.scrollY + HEADER + 8;
+    var current = sections[0] ? sections[0].id : null;
+    sections.forEach(function(sec){
+      if (sec.offsetTop <= line) { current = sec.id; }
+    });
+    // bottom of the page: force the last section
+    if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 4) {
+      current = sections[sections.length - 1].id;
+    }
+    // at the very top the hero is on screen, so nothing should be highlighted
+    if (sections.length && window.scrollY < sections[0].offsetTop - line + HEADER - 4) {
+      setActive(null);
+      return;
+    }
+    if (current) { setActive(current); }
+  }
+
+  var ticking = false;
+  window.addEventListener('scroll', function(){
+    if (!ticking) {
+      ticking = true;
+      window.requestAnimationFrame(function(){ spy(); ticking = false; });
+    }
+  }, {passive:true});
+  window.addEventListener('resize', spy, {passive:true});
+  spy();
+
+  // ---- reveal on scroll -------------------------------------------------
+  if ('IntersectionObserver' in window) {
+    var revObs = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (en.isIntersecting) { en.target.classList.add('in'); revObs.unobserve(en.target); }
+      });
+    }, {threshold:0.1});
+    document.querySelectorAll('.rv').forEach(function(el){ revObs.observe(el); });
+  } else {
+    document.querySelectorAll('.rv').forEach(function(el){ el.classList.add('in'); });
+  }
+
+  document.querySelectorAll('[data-toggle]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var detail = btn.nextElementSibling;
+      if (!detail) { return; }
+      var open = detail.classList.toggle('open');
+      if (!btn.getAttribute('data-label')) { btn.setAttribute('data-label', btn.textContent); }
+      btn.textContent = open ? 'Show less' : btn.getAttribute('data-label');
+    });
+  });
+
+  document.querySelectorAll('[data-copy]').forEach(function(btn){
+    btn.addEventListener('click', function(e){
+      e.preventDefault(); e.stopPropagation();
+      var text = btn.getAttribute('data-copy');
+      var done = function(){
+        var old = btn.getAttribute('data-label') || btn.textContent;
+        btn.textContent = 'Copied';
+        setTimeout(function(){ btn.textContent = old; }, 1400);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done, done);
+      } else {
+        var ta = document.createElement('textarea');
+        ta.value = text; document.body.appendChild(ta); ta.select();
+        try { document.execCommand('copy'); } catch(err) {}
+        document.body.removeChild(ta); done();
+      }
+    });
+  });
+
+  document.getElementById('year').textContent = new Date().getFullYear();
+})();
+</script>
+</body>
+</html>
