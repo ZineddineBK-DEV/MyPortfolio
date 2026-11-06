@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # One-command publish to GitHub Pages. Run from inside the portfolio folder.
 set -euo pipefail
-REPO_URL="${1:-https://github.com/ZineddineBK-DEV/portfolio.git}"
+REPO_URL="${1:-https://github.com/ZineddineBK-DEV/MyPortfolio.git}"
 
 cd "$(dirname "$0")"
 [ -f index.html ] || { echo "index.html missing — run build.py first"; exit 1; }
@@ -22,4 +22,4 @@ fi
 git push -u origin main
 echo
 echo "Pushed. Now: GitHub → Settings → Pages → Source: 'Deploy from a branch' → main / (root) → Save."
-echo "Live in 1-2 minutes at: https://zineddinebk-dev.github.io/portfolio/"
+echo "Live in 1-2 minutes at: https://zineddinebk-dev.github.io/MyPortfolio/"

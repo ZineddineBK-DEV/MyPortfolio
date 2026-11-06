@@ -38,7 +38,7 @@ git init
 git add .
 git commit -m "Portfolio"
 git branch -M main
-git remote add origin https://github.com/ZineddineBK-DEV/portfolio.git
+git remote add origin https://github.com/ZineddineBK-DEV/MyPortfolio.git
 git push -u origin main
 ```
 
@@ -48,7 +48,7 @@ Then in the browser:
 2. Source: **Deploy from a branch** · Branch: **main** · Folder: **/ (root)**
 3. **Save**. First build takes 1–2 minutes.
 
-Your URL: **https://zineddinebk-dev.github.io/portfolio/**
+Your URL: **https://zineddinebk-dev.github.io/MyPortfolio/**
 
 Rules for a repository page: the repo must be **public**, and `index.html` must
 sit in the folder you point Pages at (root, here). The `.nojekyll` file in this
@@ -61,7 +61,7 @@ folder stops GitHub from running Jekyll over the files — keep it.
   `CV_Zineddine_Boubaker.pdf` and not a hashed file or an open browser tab. The
   link is in three places: header, hero and footer — including the hero, because
   the header button is hidden on phones.
-- **A short URL.** `https://zineddinebk-dev.github.io/portfolio/` is fine. If
+- **A short URL.** `https://zineddinebk-dev.github.io/MyPortfolio/` is what this repo gives. If
   you want `zineddine.dev` or similar, buy the domain and point a CNAME at
   `zineddinebk-dev.github.io` in Settings → Pages → Custom domain.
 
